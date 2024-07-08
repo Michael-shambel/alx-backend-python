@@ -1,4 +1,4 @@
-#!usr/bin/env python3
+#!/usr/bin/env python3
 """
 function with itegers as argyments that measures the total execution time
 return total_time / n
