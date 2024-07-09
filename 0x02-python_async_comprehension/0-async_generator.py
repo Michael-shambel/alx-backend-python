@@ -7,7 +7,7 @@ import random
 from typing import List
 
 
-async def async_generator() -> List[float]: # type: ignore
+async def async_generator():
     """
     function that loop ten times and wait 1 second
     """
