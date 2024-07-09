@@ -4,10 +4,10 @@ function coroutine take no argumets. 10 times
 """
 import asyncio
 import random
-from typing import List
+from typing import Generator
 
 
-async def async_generator():
+async def async_generator() -> Generator[float, None, None]:
     """
     function that loop ten times and wait 1 second
     """
