@@ -5,7 +5,8 @@
 from logging import exception
 import unittest
 from parameterized import parameterized
-from utils import access_nested_map
+from utils import access_nested_map, get_json
+from unittest.mock import patch
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -35,6 +36,6 @@ class TestGetJson(unittest.TestCase):
         with patch('utils.requests.get') as mock_get:
             mock_response = mock_get.return_value
             mock_response.json.return_value = test_payload
-            result = utils_get_json(test_url)
+            result = get_json(test_url)
             self.assertEqual(result, test_payload)
             mock_get.assert_called_once_with(test_url)
