@@ -7,9 +7,8 @@ from logging import exception
 import unittest
 from parameterized import parameterized
 from utils import access_nested_map, get_json, memoize
-from unittest.mock import patch, PropertyMock
+from unittest.mock import patch
 from client import GithubOrgClient
-from unittest.mock import patch, 
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -41,20 +40,13 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json):
-        """
-        Test that the _public_repos method returns a list of repos
-        """
-        with patch.object(GithubOrgClient, '_public_repos_url',
-                          new_callable=PropertyMock,
-                          return_value="https://api.github.com/myorg/repos"
-                          ) as mock_public_repos_url:
-            mock_get_json.return_value = ['repo1', 'repo2']
-            client = GithubOrgClient("example")
-            repos = client.public_repos()
-            self.assertEqual(repos, ['repo1', 'repo2'])
-            mock_get_json.assert_called_once_with(
-                "https://api.github.com/myorg/repos")
-            mock_public_repos_url.assert_called_once()
+        mock_get_json.return_value = ['repo1', 'repo2']
+        with patch.object(GithubOrgClient, '_public_repos_url') as mock_url:
+            mock_url.return_value = ['repo1', 'repo2']
+            client = GithubOrgClient('google')
+            self.assertEqual(client.public_repos(), ['repo1', 'repo2'])
+            mock_get_json.assert_called_once_with('repo1')
+            mock_get_json.assert_called_once_with('repo2')
 
     @parameterized.expand([
         ({"license": {"key": "my_license"}}, "my_license", True),
