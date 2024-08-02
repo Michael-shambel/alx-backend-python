@@ -2,6 +2,12 @@
 """
 Implement the TestAccessNestedMap.test_access_nested_map method to test that
 the method returns what it is supposed to.
+Implement the TestAccessNestedMap.test_access_nested_map_exception method to
+test that the method raises the exception when it is supposed to.
+Implement the TestGetJson.test_get_json method to test that the method returns
+what it is supposed to.
+Implement the TestMemoize.test_memoize method to test that the method returns
+what it is supposed to.
 """
 from logging import exception
 import unittest
@@ -11,12 +17,21 @@ from unittest.mock import patch
 
 
 class TestAccessNestedMap(unittest.TestCase):
+    """
+    test case for access_nested_map function
+    implementing access_nested_map function which takes a nested map
+    and a list of keys and returns the value located at the path
+    specified in the keys list
+    """
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
         ({"a": {"b": 2}}, ("a", "b"), 2),
     ])
     def test_access_nested_map(self, nested_map, path, expected_result):
+        """
+        Test access_nested_map function
+        """
         self.assertEqual(access_nested_map(nested_map, path), expected_result)
 
     @parameterized.expand([
