@@ -45,11 +45,16 @@ class TestGetJson(unittest.TestCase):
 class TestMemoize(unittest.TestCase):
     """
     test case for memoize decorator
+    implementing memoize which speed up the calling of the function
+    when the function called the same argument the function store the
+    result and if the function called again with the same argument it will
+    return the result without calling the function again
     """
 
     def test_memoize(self):
         """
         Test memoize decorator
+        Define a test class with a method and a memoized property
         """
 
         class TestClass:
