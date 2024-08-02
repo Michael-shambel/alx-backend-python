@@ -39,23 +39,18 @@ class TestGithubOrgClient(unittest.TestCase):
         #     self.assertEqual(result, ['repo1', 'repo2'])
 
     @patch('client.get_json')
-    @patch.object(GithubOrgClient, '_public_repos_url',
-                  return_value='https://api.github.com/orgs/example/repos')
-    def test_public_repos(self, mock_public_repos_url, mock_get_json):
-        mock_get_json.return_value = [
-            {"name": "repo1", "description": "Description 1"},
-            {"name": "repo2", "description": "Description 2"}
-            ]
-        expected_repos = [
-            {"name": "repo1", "description": "Description 1"},
-            {"name": "repo2", "description": "Description 2"}
-            ]
-        client = GithubOrgClient('example')
-        repos = client.public_repos()
-        self.assertEqual(repos, expected_repos)
-        mock_public_repos_url.assert_called_once()
-        mock_get_json.assert_called_once_with(
-            'https://api.github.com/orgs/example/repos')
+    def test_public_repos(self, mock_get_json):
+        with patch.object(GithubOrgClient, '_public_repos_url',
+                          new_callable=PropertyMock,
+                          return_value="https://api.github.com/myorg/repos"
+                          ) as mock_public_repos_url:
+            mock_get_json.return_value = ['repo1', 'repo2']
+            client = GithubOrgClient("example")
+            repos = client.public_repos()
+            self.assertEqual(repos, ['repo1', 'repo2'])
+            mock_get_json.assert_called_once_with(
+                "https://api.github.com/myorg/repos")
+            mock_public_repos_url.assert_called_once()
 
     @parameterized.expand([
         ({"license": {"key": "my_license"}}, "my_license", True),
