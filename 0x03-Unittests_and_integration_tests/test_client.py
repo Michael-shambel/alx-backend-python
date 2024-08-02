@@ -7,8 +7,9 @@ from logging import exception
 import unittest
 from parameterized import parameterized
 from utils import access_nested_map, get_json, memoize
-from unittest.mock import patch
+from unittest.mock import patch, PropertyMock
 from client import GithubOrgClient
+from unittest.mock import patch, 
 
 
 class TestGithubOrgClient(unittest.TestCase):
