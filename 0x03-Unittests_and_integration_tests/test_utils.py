@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-
+Implement the TestAccessNestedMap.test_access_nested_map method to test that
+the method returns what it is supposed to.
 """
 from logging import exception
 import unittest
@@ -42,10 +43,14 @@ class TestGetJson(unittest.TestCase):
 
 
 class TestMemoize(unittest.TestCase):
-    """Test case for memoize decorator"""
+    """
+    test case for memoize decorator
+    """
 
     def test_memoize(self):
-        """Test memoize decorator"""
+        """
+        Test memoize decorator
+        """
 
         class TestClass:
             def a_method(self):
