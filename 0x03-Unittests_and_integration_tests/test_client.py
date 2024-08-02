@@ -40,6 +40,9 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json):
+        """
+        Test that the _public_repos method returns a list of repos
+        """
         with patch.object(GithubOrgClient, '_public_repos_url',
                           new_callable=PropertyMock,
                           return_value="https://api.github.com/myorg/repos"
